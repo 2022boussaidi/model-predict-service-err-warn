@@ -1,0 +1,162 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "none",
+    "version": "1.0.0",
+    "title": "Prediction",
+    "contact": {
+      "email": "chaimaboussaidi11@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+
+  "paths": {
+
+
+    "/predict/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the dataset that we want to match",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "summary": "prediction",
+        "tags": [
+          "prediction"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "ID of the model that we want to match",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "columns values",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PredictionRequest"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/PredictionRequest"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    }
+
+
+
+      
+
+  }
+  ,
+  
+  "components": {
+    "schemas": {
+      "id": {
+        "properties": {
+          "uuid": {
+            "type": "string"
+          }
+        }
+      },
+      "workspaceRequestPostBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "string"
+          },
+          "CreatedBy": {
+            "type": "string",
+            "format": "string"
+          },
+          "CreationDate": {
+            "type": "string",
+            "format": "date"
+          }
+          
+        }
+      },
+      "trainingRequestPostBody": {
+        "type": "object",
+        "properties": {
+          "a_key": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "workspaceRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "string"
+          },
+          "CreatedBy": {
+            "type": "string",
+            "format": "string"
+          },
+          "CreationDate": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "PredictionRequest": {
+        "type": "object",
+        "properties": {
+          
+            
+            "additionalProperties": {
+              "$ref": "#/components/schemas/PredictionRequest"
+            
+          }
+        }
+      },
+      "workspaceRequests": {
+        "type": "object",
+        "properties": {
+          "bworkspaceRequest": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/workspaceRequest"
+            }
+          }
+        }
+      }
+    }
+  }
+}

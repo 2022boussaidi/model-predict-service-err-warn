@@ -1,0 +1,208 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "none",
+    "version": "1.0.0",
+    "title": " generate models",
+    "contact": {
+      "email": "chaimaboussaidi11@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "paths": {
+    "/models": {
+      "get": {
+        "tags": [
+          "model Request"
+        ],
+        "summary": "Returns workspaceRequests",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/workspaceRequests"
+            }
+          }
+        }
+      }
+    },
+    "/models/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the workspace that we want to match",
+          "type": "string"
+        }
+      ],
+      "delete": {
+        "summary": "Delete workspace Request by ID",
+        "tags": [
+          "model Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "workspace Request Id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. workspace Request not found."
+          }
+        }
+      }
+    },
+    "/train/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the dataset that we want to match",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "summary": "training  request by ID",
+        "tags": [
+          "training models Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "dataset Request id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "response",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/trainingRequestPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/trainingRequestPostBody"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    }
+  },
+    "components": {
+      "schemas": {
+        "id": {
+          "properties": {
+            "uuid": {
+              "type": "string"
+            }
+          }
+        },
+        "workspaceRequestPostBody": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "format": "string"
+            },
+            "CreatedBy": {
+              "type": "string",
+              "format": "string"
+            },
+            "CreationDate": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        },
+        "trainingRequestPostBody": {
+          "type": "object",
+          "properties": {
+            "a_key": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        },
+        "workspaceRequest": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "format": "string"
+            },
+            "CreatedBy": {
+              "type": "string",
+              "format": "string"
+            },
+            "CreationDate": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        },
+        "PredictionRequest": {
+          "type": "object",
+          "properties": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/PredictionRequest"
+            }
+          }
+        },
+        "workspaceRequests": {
+          "type": "object",
+          "properties": {
+            "bworkspaceRequest": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/components/schemas/workspaceRequest"
+              }
+            }
+          }
+        }
+      }
+    }
+
+}
+
